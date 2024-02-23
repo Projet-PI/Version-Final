@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="content-body">
+        <ul aria-expanded="false">
+            <li><a href="/menu">retour au back</a></li>
+            <!-- <li><a href="./index-2.html">Home 2</a></li> -->
+        </ul>
+        <div class="container-fluid mt-3">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="active-member">
+                                <div class="table-responsive">
+                                    <table class="table table-xs mb-0">
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nom</th>
+                                            <th>Prenom</th>
+                                            <th>Adresse</th>
+                                            <th>Email</th>
+                                            <th>NumTel</th>
+                                            <th>Profession</th>
+                                            <th>Password</th>
+                                            <th>CIN</th>
+                                            <th>Actions</th> <!-- Add a column for edit action -->
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for author in authors %}
+                                            <tr>
+                                                <td>{{ author.getId() }}</td>
+                                                <td>{{ author.getNom() | upper }}</td>
+                                                <td>{{ author.getPrenom() }}</td>
+                                                <td>{{ author.getAdresse() }}</td>
+                                                <td>{{ author.getEmail() }}</td>
+                                                <td>{{ author.getNumTel() }}</td>
+                                                <td>{{ author.getProfession() }}</td>
+                                                <td>{{ author.getPassword() }}</td>
+                                                <td>{{ author.getCIN() }}</td>
+                                                <td>
+                                                    <a href="{{ path('app_user_back_delete', {'id': author.getId()}) }}"><i class="fa">&#xf014;</i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

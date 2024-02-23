@@ -1,0 +1,17 @@
+{% extends 'basefront.html.twig' %}
+
+{% block body %}
+    {{parent()}}
+{% block logout %}
+    <a class="getstarted scrollto" href="{{ path('app_logout') }}"></a>
+{% endblock %}
+
+{% block session %}
+            {{ app.user.getNom() }}
+{% endblock %}
+
+    {% block edit %}
+        <a href="{{ path('app_user_profile_edit') }}">Edit Profile</a>
+    {% endblock %}
+
+{% endblock %}
