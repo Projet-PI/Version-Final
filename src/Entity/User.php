@@ -3,13 +3,16 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ['Email'], message: 'There is already an account with this Email')]
 class User implements UserInterface,PasswordAuthenticatedUserInterface
 
 {
@@ -17,6 +20,14 @@ class User implements UserInterface,PasswordAuthenticatedUserInterface
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 0,
+        max: 50,
+        minMessage: 'The course name must be at least {{ limit }} characters long',
+        maxMessage: 'The course name cannot be longer than {{ limit }} characters',
+    )]
 
     #[Assert\NotBlank(message: 'Veuillez entrer votre nom.')]
     #[Assert\Regex(pattern: '/^[a-zA-Z]+$/', message: 'Only letters are allowed.')]
@@ -57,6 +68,18 @@ class User implements UserInterface,PasswordAuthenticatedUserInterface
     #[Assert\Length(min: 8, minMessage: 'cin doit etre {{ limit }} characters long.')]
     #[ORM\Column]
     private ?int $CIN = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $resetToken = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $resetTokenExpiration = null;
+
+
+
+
+
+
 
     public function getId(): ?int
     {
@@ -166,8 +189,7 @@ class User implements UserInterface,PasswordAuthenticatedUserInterface
 
     public function getSalt()
     {
-        // Implement if you are not using a modern algorithm for password hashing
-        // This method is deprecated in Symfony 5.3 and removed in Symfony 6
+        return null;
     }
     public function getRoles()
     {
@@ -179,29 +201,38 @@ class User implements UserInterface,PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    private bool $activated = false;
-
-    public function isActivated(): bool
+    public function getResetToken(): ?string
     {
-        return $this->activated;
+        return $this->resetToken;
     }
 
-    public function setActivated(bool $activated): self
+    public function setResetToken(?string $resetToken): static
     {
-        $this->activated = $activated;
-        return $this;
-    }
-    private $isActive = true; // Assume all users are initially active
-
-    public function getIsActive(): ?bool
-    {
-        return $this->isActive;
-    }
-
-    public function setIsActive(bool $isActive): self
-    {
-        $this->isActive = $isActive;
+        $this->resetToken = $resetToken;
 
         return $this;
     }
+
+    public function getResetTokenExpiration(): ?\DateTimeInterface
+    {
+        return $this->resetTokenExpiration;
+    }
+
+    public function setResetTokenExpiration(?\DateTimeInterface $resetTokenExpiration): static
+    {
+        $this->resetTokenExpiration = $resetTokenExpiration;
+
+        return $this;
+    }
+
+
+
+
+
+
+
+
+
+
+
 }

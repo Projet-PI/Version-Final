@@ -45,4 +45,27 @@ class UserRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function findBySearchQuery(\Symfony\Component\HttpFoundation\InputBag|float|bool|int|string|null $searchQuery): \Doctrine\ORM\Query
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        if (!empty($searchQuery)) {
+            $qb->andWhere('u.Nom LIKE :search OR u.Email LIKE :search')
+                ->setParameter('search', '%' . $searchQuery . '%');
+        }
+
+        return $qb->getQuery();
+
+    }
+
+    public function findBySearchTerm(\Symfony\Component\HttpFoundation\InputBag|float|bool|int|string|null $searchTerm)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.Nom LIKE :term OR u.Email LIKE :term')
+            ->setParameter('term', '%' . $searchTerm . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
+
 }

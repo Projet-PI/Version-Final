@@ -1,0 +1,11 @@
+knpu_oauth2_client:
+  clients:
+    google:
+      # this should match the "type" key from the supported types (e.g., "google")
+      type: google
+      # these are your Google OAuth client_id and client_secret
+      client_id: '%env(OAUTH_GOOGLE_CLIENT_ID)%'
+      client_secret: '%env(OAUTH_GOOGLE_CLIENT_SECRET)%'
+      # this is the route that users will be redirected to after they have authenticated with Google
+      redirect_route: connect_google_check
+      redirect_params: {}

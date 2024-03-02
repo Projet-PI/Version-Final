@@ -6,51 +6,80 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">Modification Compte</div>
-
                     <div class="card-body">
-                        <form method="post">
-                            {{ form_start(form) }}
+                            {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'text-white text-danger'}}) }}
                             <div class="form-group">
                                 {{ form_label(form.Nom) }}
                                 {{ form_widget(form.Nom, {'attr': {'class': 'form-control'}}) }}
+                                {% if form_errors(form.Nom) %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ form_errors(form.Nom) }}
+                                    </div>
+                                {% endif %}
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.Prenom) }}
                                 {{ form_widget(form.Prenom, {'attr': {'class': 'form-control'}}) }}
+                                {% if form_errors(form.Prenom) %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ form_errors(form.Prenom) }}
+                                    </div>
+                                {% endif %}
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.Adresse) }}
                                 {{ form_widget(form.Adresse, {'attr': {'class': 'form-control'}}) }}
+                                {% if form_errors(form.Adresse) %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ form_errors(form.Adresse) }}
+                                    </div>
+                                {% endif %}
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.Email) }}
                                 {{ form_widget(form.Email, {'attr': {'class': 'form-control'}}) }}
+                                {% if form_errors(form.Email) %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ form_errors(form.Email) }}
+                                    </div>
+                                {% endif %}
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.NumTel) }}
                                 {{ form_widget(form.NumTel, {'attr': {'class': 'form-control'}}) }}
+                                {% if form_errors(form.NumTel) %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ form_errors(form.NumTel) }}
+                                    </div>
+                                {% endif %}
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.Profession) }}
                                 {{ form_widget(form.Profession, {'attr': {'class': 'form-control'}}) }}
+                                {% if form_errors(form.Profession) %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ form_errors(form.Profession) }}
+                                    </div>
+                                {% endif %}
                             </div>
-                            <div class="form-group">
-                                {{ form_label(form.Password) }}
-                                {{ form_widget(form.Password, {'attr': {'class': 'form-control', 'id': 'password-field'}}) }}
-                            </div>
+
                             <div class="form-group">
                                 {{ form_label(form.CIN) }}
                                 {{ form_widget(form.CIN, {'attr': {'class': 'form-control'}}) }}
+                                {% if form_errors(form.CIN) %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ form_errors(form.CIN) }}
+                                    </div>
+                                {% endif %}
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Update</button>
                             </div>
                             {{ form_end(form) }}
-                        </form>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 {% endblock %}
